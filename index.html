@@ -1,0 +1,64 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="stmarkdown.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<h1><a href="#homeork-4" id="homeork-4">Homeork 4</a></h1>
+<h3><a href="#xiyao-zou" id="xiyao-zou">Xiyao Zou</a></h3>
+<p><strong>Methods:</strong> First, we initialized their dataset with 30 observations. Then, we created an <code>age</code> variable following normal distribution with a mean of 57 years and a standard deviation of 15. Alternatively, we simulated a t-distribution. We plotted a histogram of the <code>age</code> variables from both normal distribution and t-distribution to check the patterns.</p>
+<pre><code>. cls
+
+. clear
+
+. set seed 123123
+
+. set obs 30
+Number of observations (_N) was 0, now 30.
+
+. gen age=(rnormal()*15)+57 
+
+. gen age_t=(rt(_N)*15)+57
+
+. hist age, ///
+&gt;    fcolor(orange%40) /// simulated normal 
+&gt;    addplot(hist age_t, fcolor(midblue%50)) /// simulated t-dist
+&gt; ribution 
+&gt;    normal /// theoretical normal
+&gt;    legend(on ///
+&gt;       lab(1 &quot;Sampled from Normal&quot;) ///
+&gt;           lab(2 &quot;Theoretical Normal&quot;) ///
+&gt;           lab(3 &quot;Sampled from t-distribution&quot;) ///
+&gt;           )
+(bin=5, start=24.055111, width=12.854745)
+
+. graph export hist.png, replace 
+(file hist.png not found)
+file hist.png saved as PNG format
+
+</code></pre>
+<p><img src="Graph.svg" ></p>
+<pre><code>. display c(N) 
+30
+
+. display c(k)  
+2
+
+. list in 1/5 
+
+     +---------------------+
+     |      age      age_t |
+     |---------------------|
+  1. | 45.98039   72.56239 |
+  2. | 55.18299   52.15041 |
+  3. | 42.21448   65.43298 |
+  4. | 71.92942   65.18758 |
+  5. | 76.68743   63.37706 |
+     +---------------------+
+
+</code></pre>
+<p><strong>Results</strong> Based on the simulated data, we found that the observed age distribution generated from the normal distribution roughly matches the theoretical one: $ \text{Age, years} \sim \mathcal{N}(\mu = 57, \sigma^2 = 225) $. According to the histogram, we can see that the normal distribution displays different format of t-distribution.</p>
+<p><strong>Footnote</strong> The results are based on simulated data.</p>
